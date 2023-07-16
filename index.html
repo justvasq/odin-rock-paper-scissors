@@ -6,6 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+<div id="container">
+    <button id="rock">Rock</button>
+    <button id="paper">Paper</button>
+    <button id="scissor">Scissor</button>
+</div>
+<div id="player">Player: 0</div>
+<div id="computer">Computer: 0</div>
+<div id="gameOver"></div>
+
+
 <body>
 
     <script>
@@ -34,6 +44,7 @@
             return choice;
         }
         function playRound(playerSelection, computerSelection) {
+
             playerSelection = capitalize(playerSelection)
             computerSelection = capitalize(computerSelection) //Redundant
 
@@ -80,27 +91,76 @@
             }
 
         }
-        function game() {
-            let player_wins = 0;
-            let computer_wins = 0;
+        // function game() {
+        //     let player_wins = 0;
+        //     let computer_wins = 0;
 
-            for (let i = 0; i < 5; i++) {
-            // your code here!
-                const playerSelection = prompt("Enter one: Rock, Paper, or Scissor?")
-                const computerSelection = getComputerChoice();
-                const decision = playRound(playerSelection, computerSelection)
+        //     for (let i = 0; i < 5; i++) {
+        //     // your code here!
+        //         const playerSelection = prompt("Enter one: Rock, Paper, or Scissor?")
+        //         const computerSelection = getComputerChoice();
+        //         const decision = playRound(playerSelection, computerSelection)
                 
-                if (decision === -1) {
-                    computer_wins = computer_wins + 1
-                }
-                if (decision == 1) {
-                    player_wins = player_wins + 1
-                } 
+        //         if (decision === -1) {
+        //             computer_wins = computer_wins + 1
+        //         }
+        //         if (decision == 1) {
+        //             player_wins = player_wins + 1
+        //         } 
+        //     }
+        //     console.log(`Game over! Player: ${player_wins} Computer: ${computer_wins} `)   
+
+        // }
+        
+        let player_wins = 0;
+        let computer_wins = 0;
+
+        function game(playerSelection) {
+
+            const computerSelection = getComputerChoice();
+
+            // your code here!
+            const decision = playRound(playerSelection, computerSelection)
+            
+            if (decision === -1) {
+                computer_wins = computer_wins + 1
             }
-            console.log(`Game over! Player: ${player_wins} Computer: ${computer_wins} `)   
+            if (decision == 1) {
+                player_wins = player_wins + 1
+            }
+            // document.getElementById("player").innerHTML=player_wins;
+            // document.getElementById("computer").innerHTML=computer_wins;
+
+            const player = document.querySelector('#player');
+            player.textContent = `Player: ${player_wins}`;
+            
+            const computer = document.querySelector('#computer');
+            computer.textContent = `Computer: ${computer_wins}`;   
+
+
+
+            if (computer_wins == 5) {
+                console.log(`Game over! Computer wins! Player: ${player_wins} Computer: ${computer_wins} `)
+                const gameOver = document.querySelector('#gameOver');
+                gameOver.textContent = `Game Over! Computer wins!`;    
+            } 
+            if (player_wins == 5) {
+                console.log(`Game over! Player wins! Player: ${player_wins} Computer: ${computer_wins} `)
+                const gameOver = document.querySelector('#gameOver');
+                gameOver.textContent = `Game Over! Player wins!`;      
+            }
+            
 
         }
-        game()
+        // game()
+        const rock = document.querySelector('#rock');
+        rock.onclick = () => game('Rock');
+
+        const paper = document.querySelector('#paper');
+        paper.onclick = () => game('Paper');
+
+        const scissor = document.querySelector('#scissor');
+        scissor.onclick = () => game('Scissor');
         // const playerSelection = "paper";
         // const computerSelection = getComputerChoice();
         // console.log(computerSelection)
